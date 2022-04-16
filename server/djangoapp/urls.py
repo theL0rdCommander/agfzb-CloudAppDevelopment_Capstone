@@ -8,10 +8,12 @@ urlpatterns = [
     # route is a string contains a URL pattern
     # view refers to the view function
     # name the URL
-
+    #path(route='staticDjango/', views=views.get_staticDjangoTemplate, name="staticDjango"),
     # path for about view
+    path(route='about', view=views.about, name='about'),
 
     # path for contact us view
+    path(route='contact', view=views.contact, name='contact'),
 
     # path for registration
 
@@ -20,6 +22,7 @@ urlpatterns = [
     # path for logout
 
     path(route='', view=views.get_dealerships, name='index'),
+    path(route='first_template', view=views.get_staticDjangoTemplate, name='staticDjango'),
 
     # path for dealer reviews view
 
