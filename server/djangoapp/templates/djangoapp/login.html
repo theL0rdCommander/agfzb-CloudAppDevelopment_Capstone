@@ -1,38 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    {% load static %}
+    <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 
 <body>
-    {%include "./navbar_static.html"%}
-    <!--Registration form here -->
-    <form action="{%  url 'djangoapp:registration' %}" method="post">
+    {% include "./navbar_static.html" %}
+
+    <form class="form-inline" action="{% url 'djangoapp:index' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Username" name="username">
+            <input type="password" class="form-control" placeholder="Password" name="psw">
+            <a class="btn btn-link" href="{% url 'djangoapp:login_request' %}">Log in</a>
+        </div>
+    </form>
+
+    <form action="{%  url 'djangoapp:login_request' %}" method="post">
         <div class="container">
             {% csrf_token %}
             <h1>Sign up here</h1>
             <hr>
             <div class="form-group">
-                <label for="username"><b>User Name</b></label>
+                <!--Username-->
+                <label for="username">User Name</label>
                 <input type="text" class="form-control" placeholder="Enter a new user name" name="username" required>
-                <label for="firstname"><b>First Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter First Name: " name="firstname" required>
-                <label for="lastname"><b>Last Name</b></label>
-                <input type="text" class="form-control" placeholder="Enter Last Name: " name="lastname" required>
                 <!--password-->
                 <label for="psw"><b>Password</b></label>
                 <input type="password" class="form-control" placeholder="Enter Password: " name="psw" required>
                 {% if message %}
                 <div class="alert alert-warning">{{message}}</div>
                 {% endif %}
-                <br>
-                <button class="btn btn-primary" type="submit">Sign Up</button>
+                <button class="btn btn-primary" type="submit">Log in</button>
             </div>
         </div>
     </form>
+
 </body>
 
 </html>
