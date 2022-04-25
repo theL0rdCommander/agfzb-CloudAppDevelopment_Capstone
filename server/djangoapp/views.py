@@ -9,7 +9,8 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-from .models import restapis
+
+from .restapis import get_dealers_from_cf
 #from server import djangoapp
 
 # Get an instance of a logger
@@ -90,21 +91,21 @@ def registration_request(request):
 #        return render(request, 'djangoapp/index.html', context)
 def get_dealerships(request):
     if request.method == "GET":
-        url = "your-cloud-function-domain/dealerships/dealer-get"
+        url = "https://80e52559-bb9f-495b-8742-00bd31516ce8-bluemix.cloudantnosqldb.appdomain.cloud/dealerships/dealer-get"
         # Get dealers from the URL
-        dealerships = restapis.get_dealers_from_cf(url)
+        dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        return HttpResponse(dealer_names)#llamar a index y 
         
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, dealer_id):
+    pass
 
 # Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
-# ...
+def add_review(request, dealer_id):
+    pass
 
