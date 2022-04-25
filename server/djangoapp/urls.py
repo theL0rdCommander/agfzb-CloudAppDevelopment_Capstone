@@ -9,9 +9,9 @@ urlpatterns = [
     # route is a string contains a URL pattern
     # view refers to the view function
     # name the URL
-    #path(route='staticDjango/', views=views.get_staticDjangoTemplate, name="staticDjango"),
-    path(route='first_template',
-         view=views.get_staticDjangoTemplate, name='staticDjango'),
+    path(route='', views=views.get_staticDjangoTemplate, name="index"),
+
+    path(route='first_template',view=views.get_staticDjangoTemplate, name='staticDjango'),
 
     # path for about view
     path(route='about', view=views.about, name='about'),
@@ -29,12 +29,12 @@ urlpatterns = [
     path('logout/', views.logout_request, name='logout_request'),
 
     # path for dealer reviews view
-    path('logout/', views.get_dealer_review, name='dealer_reviews'),
+    path('/api/dealership', views.get_dealer_review, name='dealer_reviews'),
     
     # path for add a review view
-    path('logout/', views.add_review, name='add_review'),
+    path('/api/review', views.add_review, name='add_review'),
 
     # (mine) path for get the dealerships (INDEX)
-    path(route='', view=views.get_dealerships, name='index')
+    path(route='/api/review?dealerId=""', view=views.get_dealerships, name='index')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
