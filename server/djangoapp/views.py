@@ -10,6 +10,8 @@ from datetime import datetime
 import logging
 import json
 
+from server.djangoapp.models import CarModel, DealerReview
+
 from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf
 #from server import djangoapp
 
@@ -115,5 +117,18 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    pass
-
+    context = {}
+    if request.method == 'GET':
+        context['cars'] = CarModel.objects.get(dealer_id=dealer_id)
+        render(request, 'djangoapp/add_review.html', context)
+    elif request.method == 'POST':
+        # update the json_payload["review"] to standarized cloudant format 
+        content = request.POST['content']
+        check = request.POST['purchasecheck']
+        car = request.POST['car']
+        date = datetime.utcnow().isoformat( request.POST['purchasedate'])
+        
+#{{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}
+        # TODO look after sentiment!!!
+        #review = DealerReview(dealer_id, request.user.name, check, content, date, car.make.name, car.model, car.year, "good",  ) 
+        redirect("djangoapp:dealer_details", dealer_id=dealer_id)
