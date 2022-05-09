@@ -35,7 +35,7 @@
             <th scope="col" data-filter-control="select">State</th>
         </thead>
         <tbody>
-            {% foreach dealer in dealerships %}
+            {% for dealer in dealerships %}
             <tr>
                 <th scope="row">{{dealer.id}}</th>
                 <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>.

@@ -10,7 +10,7 @@ from datetime import datetime
 import logging
 import json
 
-from server.djangoapp.models import CarModel, DealerReview
+from djangoapp.models import CarModel, DealerReview
 
 from .restapis import get_dealers_from_cf, get_dealer_reviews_from_cf
 #from server import djangoapp
@@ -24,6 +24,10 @@ def get_staticDjangoTemplate(request):
     context = {}
     if request.method == "GET":
         return render(request, 'djangoapp/staticDjango.html', context)
+
+
+def index(request):
+    return render(request,'djangoapp/index.html')
 
 # Create an `about` view to render a static about page
 def about(request):
@@ -94,24 +98,17 @@ def registration_request(request):
 def get_dealerships(request):
     context = {}
     if request.method == "GET":
-        url = "https://80e52559-bb9f-495b-8742-00bd31516ce8-bluemix.cloudantnosqldb.appdomain.cloud/dealerships/dealer-get"
+        url = "https://80e52559-bb9f-495b-8742-00bd31516ce8-bluemix.cloudantnosqldb.appdomain.cloud/dealerships"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         context['dealerships'] = dealerships
         render(request, 'djangoapp/index.html', context)
-        
-        #simple http response:
-        ## Concat all dealer's short name
-        #dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
-        ## Return a list of dealer short name
-        #return HttpResponse(dealer_names)#llamar a index y 
-        #
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
     context = {}
-    dealer_reviews = get_dealer_reviews_from_cf(request.url, dealerId=dealer_id)
+    dealer_reviews = get_dealer_reviews_from_cf(dealerId=dealer_id)
     context['dealer_reviews'] = dealer_reviews
     render(request, 'djangoapp/dealer_details.html', context)
 
@@ -128,7 +125,7 @@ def add_review(request, dealer_id):
         car = request.POST['car']
         date = datetime.utcnow().isoformat( request.POST['purchasedate'])
         
-#{{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}
+        #{{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}
         # TODO look after sentiment!!!
         #review = DealerReview(dealer_id, request.user.name, check, content, date, car.make.name, car.model, car.year, "good",  ) 
         redirect("djangoapp:dealer_details", dealer_id=dealer_id)
