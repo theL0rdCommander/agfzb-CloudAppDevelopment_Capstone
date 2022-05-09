@@ -10,8 +10,7 @@ urlpatterns = [
     # view refers to the view function
     # name the URL
     #path(route='', view=views.index, name="index"),
-
-    path(route='first_template',view=views.get_staticDjangoTemplate, name='staticDjango'),
+    path(route='index.html',view=views.get_staticDjangoTemplate, name='staticDjango'),
 
     # path for about view
     path(route='about', view=views.about, name='about'),
