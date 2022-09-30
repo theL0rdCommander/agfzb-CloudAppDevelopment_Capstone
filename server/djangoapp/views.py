@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 def get_staticDjangoTemplate(request):
     context = {}
     if request.method == "GET":
-        return render(request, 'djangoapp/staticDjango.html', context)
+        return render(request, 'djangoapp/staticclDjango.html', context)
 
 
 def index(request):
@@ -95,37 +95,40 @@ def registration_request(request):
 #    context = {}
 #    if request.method == "GET":
 #        return render(request, 'djangoapp/index.html', context)
-def get_dealerships(request):
-    context = {}
-    if request.method == "GET":
-        url = "https://80e52559-bb9f-495b-8742-00bd31516ce8-bluemix.cloudantnosqldb.appdomain.cloud/dealerships"
-        # Get dealers from the URL
-        dealerships = get_dealers_from_cf(url)
-        context['dealerships'] = dealerships
-        render(request, 'djangoapp/index.html', context)
+#def get_dealerships(request):
+    # context = {}
+    # if request.method == "GET":
+    #     url = "https://80e52559-bb9f-495b-8742-00bd31516ce8-bluemix.cloudantnosqldb.appdomain.cloud/dealerships"
+    #     # Get dealers from the URL
+    #     dealerships = get_dealers_from_cf(url)
+    #     context['dealerships'] = dealerships
+    #     render(request, 'djangoapp/index.html', context)
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
-    context = {}
-    dealer_reviews = get_dealer_reviews_from_cf(dealerId=dealer_id)
-    context['dealer_reviews'] = dealer_reviews
-    render(request, 'djangoapp/dealer_details.html', context)
+    return render(request,'djangoapp/index.html') #TO DELETE
+#     render(request, 'djangoapp/dealer_details.html', context)
+#     context = {}
+#     dealer_reviews = get_dealer_reviews_from_cf(dealerId=dealer_id)
+#     context['dealer_reviews'] = dealer_reviews
+#     render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    context = {}
-    if request.method == 'GET':
-        context['cars'] = CarModel.objects.get(dealer_id=dealer_id)
-        render(request, 'djangoapp/add_review.html', context)
-    elif request.method == 'POST':
-        # update the json_payload["review"] to standarized cloudant format 
-        content = request.POST['content']
-        check = request.POST['purchasecheck']
-        car = request.POST['car']
-        date = datetime.utcnow().isoformat( request.POST['purchasedate'])
+    return render(request,'djangoapp/index.html') #TO DELETE
+#     context = {}
+#     if request.method == 'GET':
+#         context['cars'] = CarModel.objects.get(dealer_id=dealer_id)
+#         render(request, 'djangoapp/add_review.html', context)
+#     elif request.method == 'POST':
+#         # update the json_payload["review"] to standarized cloudant format 
+#         content = request.POST['content']
+#         check = request.POST['purchasecheck']
+#         car = request.POST['car']
+#         date = datetime.utcnow().isoformat( request.POST['purchasedate'])
         
-        #{{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}
-        # TODO look after sentiment!!!
-        #review = DealerReview(dealer_id, request.user.name, check, content, date, car.make.name, car.model, car.year, "good",  ) 
-        redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+#         #{{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}
+#         # TODO look after sentiment!!!
+#         #review = DealerReview(dealer_id, request.user.name, check, content, date, car.make.name, car.model, car.year, "good",  ) 
+#         redirect("djangoapp:dealer_details", dealer_id=dealer_id)
