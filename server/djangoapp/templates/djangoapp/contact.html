@@ -16,8 +16,28 @@
     {%include "./navbar_static.html"%}
 
     <body>
-        Contact us
-        aca habria una casilla de correo para mandar mensajes, tipico de pagina de contacto
+        <h1>Contact us</h1>
+        <br>
+        <div class="container-fluid">
+            <form action="contact">
+                <label for="fname">Name</label>
+                <input type="text" id="fname" name="firstname" placeholder="Your name..." required>
+                
+                <label for="femail">Email</label>
+                <input type="text" id="femail" name="email" placeholder="Your email..." required>
+                
+                <br>
+                <label for="fsubject">Subject</label>
+                <input type="text" id="fsubject" name="Subject" placeholder="Subject..." required>
+                
+                <label for="message"></label>
+                <textarea class="form-control" id="content" name="content" rows="1" placeholder="Write your message here" required></textarea>
+                
+                <br>
+                <button onclick="">Send message</button>
+            </form>
+        </div>
+    
     </body>
 
 </html>
