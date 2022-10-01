@@ -27,7 +27,7 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = [ 'cardealershipganga.us-south.cf.appdomain.cloud', "localhost"]
+ALLOWED_HOSTS = [ 'mycardealership2022.us-south.cf.appdomain.cloud', "localhost"]
 
 
 # Application definition
